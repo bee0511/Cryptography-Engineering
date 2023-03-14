@@ -1,7 +1,10 @@
 
 
 # 密碼工程 Quiz 3
-解決 Monoalphabetic Substitution Ciphers  
+
+[![hackmd-github-sync-badge](https://hackmd.io/qsQ5mABDQ2eaZWrAsU61Tg/badge)](https://hackmd.io/qsQ5mABDQ2eaZWrAsU61Tg)
+
+解決 Polyalphabetic Substitution Ciphers  
 這個程式有以下功能  
 1. determine the keyword length of these two encrypted messages using I.C. 
 2. Then solve the encryption keyword letters 
@@ -12,7 +15,7 @@ the result followed by a newline to stdout.
 ### Exercise
 在終端機輸入```python .\110550164.py```進行編譯  
 
-將透過 Monoalphabetic Substitution Ciphers 所加密的密文輸入並按下 Enter，可以得到明文、keyword length、keyword letters。  
+將透過 Monoalphabetic Substitution Ciphers 所加密的密文輸入並按下 Enter，明文就會被寫入 message_out.txt 之中。  
 
 ### Bonus 1
 在終端機輸入```python .\110550164_bonus_1.py```進行編譯就可以看到解碼後的明文了
@@ -22,15 +25,19 @@ the result followed by a newline to stdout.
 ciphertext = get_from_stdin()
 guess_max_key_size = 6
 key_size = get_key_size(ciphertext, guess_max_key_size)
-print("The key size is:", key_size)
+# print("The key size is:", key_size)
 split_text = split_with_keysize(ciphertext, key_size)
 #print_chi(split_text, key_size)
 key = generate_key(split_text)
-print("The key is:", key)
+# print("The key is:", key)
 plain_text = decrypt(split_text, key)
 plain_text = rearrange_plaintext(plain_text)
-print("The plaintext is:")
-print(plain_text)
+# print("The plaintext is:")
+# print(plain_text)
+
+fp = open("message_out.txt", "w")
+fp.write(plain_text)
+fp.close()
 ```
 接下來我會將我的程式碼分成幾個部分:  
 1. 從 stdin 讀檔
