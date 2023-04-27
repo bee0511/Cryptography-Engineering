@@ -3,6 +3,7 @@ from itertools import combinations
 from collections import defaultdict
 
 
+
 def problem1():
 	CIPHERTEXTS = [
 	bytes.fromhex("315c4eeaa8b5f8aaf9174145bf43e1784b8fa00dc71d885a804e5ee9fa40b16349c146fb778cdf2d3aff021dfff5b403b510d0d0455468aeb98622b137dae857553ccd8883a7bc37520e06e515d22c954eba50"),
@@ -43,15 +44,16 @@ def problem1():
 		print(str(i+1).ljust(2), "|", plaintext_guess)
 	print('\n'"The plaintext is: ")
 	print("The secret message is: When using a stream cipher, never use the key more than once")
+ 
 def problem2():
 	def str_to_int(s):
 		return int(s.encode().hex(), 16)
 	key = str_to_int("attack at dawn") ^ 0x09e1c5f70a65ac519458e7e53f36
-	print("the one-time pad encryption of the message \"attack at dusk\" under the same OTP key is:")
+	print("The one-time pad encryption of the message \"attack at dusk\" under the same OTP key is:")
 	print(hex(str_to_int("attack at dusk") ^ key))
 
 def problem8():
-	a, b = 105, 13
+	a, b = 48, 13
 	def egcd(a, b):
 		if a == 0:
 			return (b, 0, 1)
@@ -68,38 +70,6 @@ def problem8():
 	print(a, " * ", inv_a, " + ", b, " * ", inv_b, " = ", gcd)
 	print("The inverse of 13 is: ", inv_b)
 
-
-def problem9():
-	def strxor(a, b):
-		if len(a) > len(b):
-			return "".join([chr(ord(x) ^ ord(y)) for (x, y) in zip(a[:len(b)], b)])
-		else:
-			return "".join([chr(ord(x) ^ ord(y)) for (x, y) in zip(a, b[:len(a)])])
-
-	cipherText = "20814804c1767293b99f1d9cab3bc3e7 ac1e37bfb15599e5f40eef805488281d".split(' ')
-
-	cipherTextIV = cipherText[0]
-	cipherTextC0 = cipherText[1]
-
-	plainText = "Pay Bob 100$"
-	plainTextTarget = "Pay Bob 500$"
-
-	paddingNum1 = str(len(cipherTextC0) - len(plainText))
-	padding1 = "".join([paddingNum1] * int(paddingNum1))
-
-	paddingNum2 = str(len(cipherTextC0) - len(plainTextTarget))
-	padding2 = "".join([paddingNum2] * int(paddingNum2))
-
-	plainText += padding1
-	plainTextTarget += padding2
-
-	xorredPlainText = strxor(plainText, plainTextTarget)
-
-	newIV = strxor(xorredPlainText, cipherTextIV)
-
-	
-	print ("New Ciphertext: ", newIV, cipherText[1], sep='')
-
 if __name__=="__main__":
 	print("====== Problem 1 ======"'\n')
 	problem1()
@@ -107,5 +77,3 @@ if __name__=="__main__":
 	problem2()
 	print('\n'"====== Problem 8 ======"'\n')
 	problem8()
-	print('\n'"====== Problem  ======"'\n')
-	problem9()
